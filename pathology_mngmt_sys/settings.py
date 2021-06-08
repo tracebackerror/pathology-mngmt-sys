@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'filer',
     'mptt',
     'lab',
+    'django_admin_search',
 ]
 
 MIDDLEWARE = [
