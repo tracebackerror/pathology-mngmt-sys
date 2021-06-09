@@ -31,4 +31,8 @@ class TestFormSearch(Form):
 class PackageFormSearch(Form):
     name = CharField(required=False)
     amount =  DecimalField(required=False)
+    
+    
+class OrderFormSearch(Form):
+    order_date = DateTimeField(required=False)
   
