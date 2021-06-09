@@ -57,14 +57,53 @@ admin.site.site_title = 'Lab Management'
 admin.site.index_title = 'Lab Management'
 
 
+class ResultThroughInline(admin.TabularInline):
+   
+    model = ResultThrough
+    extra = 0
+    
 class OrderAdmin(AdvancedSearchAdmin):
+    
+   def formfield_for_manytomany(self, *args, **kwargs):  # pylint: disable=arguments-differ
+        # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
+        #                   https://code.djangoproject.com/ticket/12203 and
+        #                   https://github.com/django/django/pull/10829
+
+        # We trick Django here to avoid `./manage.py makemigrations` produce unneeded migrations
+        ResultThrough._meta.auto_created = True  
+        return super().formfield_for_manytomany(*args, **kwargs)
+
    search_form = OrderFormSearch
    list_display = ['order_date', 'patient' ]
+   filter_horizontal = ('investigation_test', 'investigation_package')
+   inlines = (ResultThroughInline,)
+   date_hierarchy = 'order_date'
 
    
    
    
 admin.site.register(Order, OrderAdmin)
+
+
+
+class ResultThroughAdmin(admin.ModelAdmin):
+   list_display = [field.name for field in ResultThrough._meta.fields ]
+   
+   
+   
+   
+admin.site.register(ResultThrough, ResultThroughAdmin)
+
+
+
+class LabInformationAdmin(admin.ModelAdmin):
+   list_display = [field.name for field in LabInformation._meta.fields ]
+   
+   
+   
+   
+admin.site.register(LabInformation, LabInformationAdmin)
+
 
 
 
