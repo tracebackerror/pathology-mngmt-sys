@@ -1,2 +1,3 @@
 django-filer
 django-admin-search
+django-tinymce

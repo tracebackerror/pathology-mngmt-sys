@@ -24,10 +24,10 @@ SECRET_KEY = 'g8sc&rpg&$p44u1ibh=sa5jhtq!l48#6(ba&btr+-gjazg!$mh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-THUMBNAIL_HIGH_RESOLUTION = True
+
 ALLOWED_HOSTS = []
 
-
+FILER_DEBUG=True
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mptt',
     'lab',
     'django_admin_search',
+    'tinymce',
 ]
 
 MIDDLEWARE = [

@@ -19,3 +19,16 @@ class DoctorFormSearch(Form):
     
     cut = FloatField(required=False)
     
+    
+class TestFormSearch(Form):
+    name = CharField(required=False)
+    low_ref = CharField(required=False)
+    high_ref = CharField(required=False)
+    
+    amount =  DecimalField(required=False)
+    
+    
+class PackageFormSearch(Form):
+    name = CharField(required=False)
+    amount =  DecimalField(required=False)
+  
