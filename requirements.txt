@@ -1,3 +1,6 @@
 django-filer
 django-admin-search
 django-tinymce
+django-import-export
+django-admin-charts
+django-bower

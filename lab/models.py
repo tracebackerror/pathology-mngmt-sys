@@ -18,6 +18,8 @@ class Patient(models.Model):
         choices = GenderChoice.choices, 
         default= GenderChoice.MALE,
          max_length=100,)
+         
+    date = models.DateTimeField(default=datetime.now, blank=False, null=False)
     
     def __str__(self):
         return f"{self.id} - {self.first_name} - {self.contact_no}"
