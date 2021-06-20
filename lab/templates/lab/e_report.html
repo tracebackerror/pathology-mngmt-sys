@@ -1,0 +1,154 @@
+{% load static %}
+{% load thumbnail %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>e-Report - {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        @page {
+            size: a4 portrait;
+            @frame header_frame { 
+                -pdf-frame-content: header_content;
+                left: 50pt; width: 512pt; top: 10pt; height: 300pt;
+            }
+            @frame content_frame { 
+                left: 40pt; width: 512pt; top: 150pt; height: 500pt;
+            }
+            @frame footer_frame { 
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 700pt; height: 250pt;
+            }
+        }
+
+        img { zoom: 80%; }
+
+        pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+  </head>
+  <body>
+
+   <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+        <table style="background-color: rgb(240, 240, 240);padding-right: 10px;">
+            <tr>
+                <td style="width: 100px;">
+                    <img src="{% static 'images/icon.png' %}" alt="Logo" style="width: 100px;">
+                </td>
+                <td style="width: 500px;">
+                    <h1 style="letter-spacing: 3px;font-weight: bold;margin-bottom: 0px;padding-bottom: 0px;">
+                        {{lab_info.name}}
+                    </h1>
+                    <p style="font-size: medium;">{{lab_info.address}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100px;"></td>
+                <td style="width: 550px;text-align: right;">
+                    <pre style="margin-bottom: 0px;border: 0px;">{{lab_info.header}}</pre>
+                </td>
+            </tr>
+        </table>
+
+        <!-- <div style="background-color: lightgray;">&nbsp;</div> -->
+        <br>
+
+        <table>
+            <tr>
+                <td style="width: 100px;">PATIENT NAME</td>
+                <td>: {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</td>
+                <td></td>
+                <td></td>
+                <td style="width: 50px;">Date</td>
+                <td>: {% now "jS F Y" %}</td>
+            </tr>
+            <tr>
+                <td style="width: 100px;">Referred By</td>
+                <td>: {{order_obj.referred_by.first_name}} {{order_obj.referred_by.last_name}}</td>
+                <td></td>
+                <td></td>
+                <td style="width: 50px;">Sex</td>
+                <td>: {{order_obj.patient.gender}}</td>
+            </tr>
+            <tr>
+                <td style="width: 100px;">SAMPLE COLL. AT</td>
+                <td style="width: 150px;">: {{order_obj.sample_collected_at}} - {{order_obj.sample_collection_datetime}}</td>
+                <td></td>
+                <td></td>
+                <td style="width: 50px;">Age</td>
+                <td>: {{order_obj.patient.age}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content" align="right">
+        <img src="{% thumbnail lab_info.doctor_sign 150x150 %}" alt="<Doctor Signature>">
+        <p> {{lab_info.doctor_name}} </p>
+        <p> {{lab_info.doctor_qualification}} </p>
+        <hr>
+        <div align="left">
+            {{lab_info.footer}}            
+        </div>
+    </div>
+    
+    
+    <!-- HTML Content -->
+    {% if order_obj %}
+    <div id="content_frame">
+    {% for pkg_name,test_reports in full_reports %}
+        <div class="container report-sub-div">
+            <hr>
+            <p style="font-weight: bold;text-align: center;font-size: large;">{{pkg_name}}</p>
+            <hr>
+
+            <table class="table thead-dark" style="width: 100%;text-align: center;" cellpadding="5">
+                <tr class="mb-10" style="text-decoration: underline;">
+                    <th style="padding-bottom: 20px;">TEST DONE</td>
+                    <th style="padding-bottom: 20px;">RESULT</th>
+                    <th style="padding-bottom: 20px;">NORMAL RANGE</th>
+                </tr>
+                {% for report in test_reports %}
+                    <tr>
+                        <td>{{report.Test.name}}</td>
+                        <td>{{report.results}}</td>
+                        {% if report.Test.low_ref and report.Test.high_ref %}
+                        <td>{{report.Test.low_ref }} - {{report.Test.high_ref }} {{report.Test.units }}</td>
+                        {% else %}
+                        <td><pre style="font-family:'Times New Roman', Times, serif;">{{report.Test.elabaorated_range }}</pre></td>
+                        {% endif %}
+                    </tr>
+                    {% if report.Test.notes %}
+                        <tr>
+                            <td colspan="2" align="left"><small id="helpId" class="form-text text-muted text-left"><pre>{{report.Test.notes}}</pre></small></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+
+        {% if forloop.counter < full_reports_count %}
+        <pdf:nextpage /> 
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <br>
+  </body>
+</html>

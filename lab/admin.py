@@ -29,6 +29,7 @@ class OrderInline( admin.StackedInline):
 class PatientAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
     resource_class = PatientResource
     list_display = [field.name for field in Patient._meta.fields ]
+    list_display_links = ['first_name'] 
     search_form = PatientFormSearch
     inlines = (OrderInline,)
     readonly_fields = ["date",]
@@ -69,8 +70,9 @@ class PatientAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
 admin.site.register(Patient, PatientAdmin)
 
 
-class DoctorAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
-   list_display = [field.name for field in Doctor._meta.fields ] 
+class DoctorAdmin(AdvancedSearchAdmin):
+   list_display = [field.name for field in Doctor._meta.fields ]
+   list_display_links = ['first_name'] 
    search_form = DoctorFormSearch
    resource_class = DoctorResource
    
@@ -79,6 +81,7 @@ admin.site.register(Doctor, DoctorAdmin)
 
 class TestAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Test._meta.fields ]
+   list_display_links = ['name']
    search_form = TestFormSearch
    resource_class = TestResource
    
@@ -88,6 +91,8 @@ admin.site.register(Test, TestAdmin)
 
 class PackageAdmin(AdvancedSearchAdmin):
    list_display = [field.name for field in Package._meta.fields ]
+   filter_horizontal = ['linked_test']
+   list_display_links = ['name']
    search_form = PackageFormSearch
    
    
@@ -142,6 +147,7 @@ admin.site.register(ResultThrough, ResultThroughAdmin)
 
 class LabInformationAdmin(admin.ModelAdmin):
    list_display = [field.name for field in LabInformation._meta.fields ]
+   list_display_links = ['name'] 
    
    
    

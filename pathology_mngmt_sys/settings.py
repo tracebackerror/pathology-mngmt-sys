@@ -25,7 +25,7 @@ SECRET_KEY = 'g8sc&rpg&$p44u1ibh=sa5jhtq!l48#6(ba&btr+-gjazg!$mh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'filer',
     'mptt',
-    'lab',
+    'lab.apps.LabConfig',
     'django_admin_search',
     'tinymce',
     'import_export',
@@ -122,28 +122,39 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     
 )
 
-
-
 # Specifie path to components root (you need to use absolute path)
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, 'components')
-
 
 BOWER_INSTALLED_APPS = (
     'd3#3.3.13',
     'nvd3#1.7.1',
 )
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ABS_URL = None
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'user744826@gmail.com'
+EMAIL_HOST_PASSWORD = 'dTc0NDgyNjc0NjQ0'
+DEFAULT_FROM_EMAIL = 'user744826@gmail.com'

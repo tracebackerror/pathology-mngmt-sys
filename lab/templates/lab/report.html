@@ -1,0 +1,267 @@
+{% load static %}
+{% load thumbnail %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Lab Report - {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+
+    <div class="container-fluid" style="background-color: hsl(0, 0%, 87.5%);padding: 12px;">
+        <div class="row">
+            {% if order_obj %}
+            <div class="col text-center">
+                <button style="width: 200px;" onclick="printReport()" class="btn btn-success">Print Report</button>
+            </div>
+            <div class="col text-center">
+                <a style="width: 200px;" target="_blank" class="btn btn-success" href="{% url 'e_report' %}?order_id={{request.GET.order_id}}" role="button">View e-Report</a>
+            </div>
+            <div class="col text-center">
+                <a style="width: 200px;" class="btn btn-success" href="{% url 'e_report' %}?order_id={{request.GET.order_id}}&download=true" role="button">Download e-Report</a>
+            </div>
+            <div class="col text-center">
+                <button style="width: 200px;" id="sendEmail" class="btn btn-success">Send e-Report to Patient</button>
+            </div>
+            {% else %}
+            <div class="col text-center">
+                <button style="width: 200px;cursor: no-drop;" class="btn btn-dark" disabled>Print Report</button>
+            </div>
+            <div class="col text-center">
+                <button style="width: 200px;cursor: no-drop;" class="btn btn-dark" disabled>View e-Report</button>
+            </div>
+            <div class="col text-center">
+                <button style="width: 200px;cursor: no-drop;" class="btn btn-dark" disabled>Download e-Report</button>
+            </div>
+            <div class="col text-center">
+                <button style="width: 200px;cursor: no-drop;" class="btn btn-dark" disabled>Send e-Report to Patient</button>
+            </div>
+            {% endif %}
+            <div class="col text-center">
+                <a style="width: 200px;" target="_blank" class="btn btn-success" href="{% url 'admin:login' %}" role="button">Go To Admin Panel</a>
+            </div>
+            <div class="col text-center">
+                <a style="width: 200px;" class="btn btn-danger" href="{% url 'admin:logout' %}" role="button">Logout</a>
+            </div>
+        </div>
+    </div>
+
+   <br>
+    
+    <div class="container">
+        <div class="col-md-6 offset-md-3">
+            {% for message in messages %}
+                {% if "success" in message.extra_tags  %}
+                    <div class="alert alert-success text-center">
+                        <strong>{{ message|escape }}</strong>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger text-center">
+                        <strong>{{ message|escape }}</strong>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form method="GET" onsubmit="$('#spinnerDiv').show();">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-3 offset-md-4">
+                    <input type="number" class="form-control" name="order_id" id="order_id" placeholder="Order ID" value={{request.GET.order_id}}>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" id="btnFetch" class="btn btn-primary">Fetch</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br>   <br>
+
+    <div id="spinnerDiv" class="spinner-border text-success" role="status" style="display:none;width: 3rem; height: 3rem;  position: fixed;left: 0;right: 0;top: 0;bottom: 0;margin: auto;">
+        <span class="sr-only">Loading...</span>
+    </div>
+    
+    {% if order_obj %}
+    <div id="reportMainDiv">
+    {% for pkg_name,test_reports in full_reports %}
+        <div class="container report-sub-div" style="width: 70%;">
+            <div class="header">
+                <div class="row">
+                    <img src="{% static 'images/icon.png' %}" alt="Logo" style="width: 12%;">
+                    <h3 style="width: 85%;letter-spacing: 3px;font-weight: bold;">
+                        {{lab_info.name}}
+                        <p style="font-size: medium;width: 90%;letter-spacing: 0px;font-weight: normal;">{{lab_info.address}}</p>
+                    </h3>
+                </div>
+                <div align="right">
+                    <pre style="margin-bottom: 0px;border: 0px;">{{lab_info.header}}</pre>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <table style="text-transform: uppercase;">
+                        <tr>
+                            <td scope="row">PATIENT NAME</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Referred By</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{{order_obj.referred_by.first_name}} {{order_obj.referred_by.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">SAMPLE COLL. AT</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{{order_obj.sample_collected_at}} - {{order_obj.sample_collection_datetime}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6 col-sm-6" align="right">
+                    <table style="text-transform: uppercase;">
+                        <tr>
+                            <td scope="row">Date</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{% now "jS F Y" %}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Sex</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{{order_obj.patient.gender}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Age</td>
+                            <td style="padding-left: 20px;;padding-right: 20px;">:</td>
+                            <td>{{order_obj.patient.age}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+            <p style="font-weight: bold;text-align: center;font-size: large;">{{pkg_name}}</p>
+            <hr>
+
+            <table style="width: 100%;text-align: center;table-layout: fixed;">
+                <tr class="mb-10" style="text-decoration: underline;">
+                    <th style="padding-bottom: 20px;">TEST DONE</td>
+                    <th style="padding-bottom: 20px;">RESULT</th>
+                    <th style="padding-bottom: 20px;max-width: 20%;">NORMAL RANGE</th>
+                </tr>
+                {% for report in test_reports %}
+                    <tr>
+                        <td>{{report.Test.name}}</td>
+                        <td>
+                            <input type="text" class="form-control col-md-8 offset-md-3" result-id="{{report.id}}" value="{{report.results}}">
+                        </td>
+                        {% if report.Test.low_ref and report.Test.high_ref %}
+                        <td>{{report.Test.low_ref }} - {{report.Test.high_ref }} {{report.Test.units }}</td>
+                        {% else %}
+                        <td><pre style="font-family:'Times New Roman', Times, serif;">{{report.Test.elabaorated_range }}</pre></td>
+                        {% endif %}
+                    </tr>
+                    {% if report.Test.notes %}
+                        <tr>
+                            <td colspan="2"><small id="helpId" class="form-text text-muted text-left"><pre>{{report.Test.notes}}</pre></small></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <div class="temp-div">
+                <br>    <br><br>    <br>
+                <div align="right">
+                    <img src="{% thumbnail lab_info.doctor_sign 150x150 %}" alt="<Doctor Signature>">
+                    <p style="margin: 0px;"> {{lab_info.doctor_name}} </p>
+                    <p> {{lab_info.doctor_qualification}} </p>
+                </div>
+                <hr>
+                <p>
+                    {{lab_info.footer}}
+                </p>
+                <br>    <br><br>    <br>
+            </div>
+        </div>
+    {% endfor %}
+     <footer>
+        <div align="right">
+            <img src="{% thumbnail lab_info.doctor_sign 150x150 %}" alt="<Doctor Signature>">
+            <p style="margin: 0px;"> {{lab_info.doctor_name}} </p>
+            <p> {{lab_info.doctor_qualification}} </p>
+        </div>
+        <hr>
+        <p>
+            {{lab_info.footer}}
+        </p>
+    </footer>
+</div>
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        $(document).ready(function(){
+            $("#sendEmail").click(function(){
+                var con = confirm("Kindly note that, The e-Report will send on this mail ID - {{order_obj.patient.email}}");
+                if (con){
+                    var url = "{% url 'e_report' %}?order_id={{request.GET.order_id}}&send_mail=true";
+                    $('#spinnerDiv').show();
+                    location.replace(url);
+                }
+            });
+
+            $('.report-sub-div').each(function(){
+                var tr_count = $(this).children('table').children('tbody').children('tr');
+                    if (tr_count.length > 12){
+                        tr_count[12].style = "page-break-after:always";
+                    }
+            });
+            
+            $('input[type=text]').keyup(function() {
+                var result = $(this).val()
+                var result_id = $(this).attr("result-id");
+                $.ajax({
+                    url: "{% url 'update_result' %}",
+                    method: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
+                        'result_id' : result_id,
+                        'result' : result
+                    },
+                    success: function(data){
+                        if(data.status != 200){
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    
+        function printReport() {
+            $(".report-sub-div").css("width","100%");
+            $('input[type=text]').each(function(){
+                $(this).replaceWith("<p>"+$(this).val()+"</p>");
+            })
+            var printContents = document.getElementById("reportMainDiv").innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            window.location.reload();
+            $(".report-sub-div").css("width","70%");
+        }
+      </script>
+
+  </body>
+</html>

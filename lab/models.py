@@ -43,8 +43,9 @@ class Test(models.Model):
     name = models.CharField(max_length=100)
     low_ref = models.CharField(max_length=30,  null=True, blank=True)
     high_ref = models.CharField(max_length=30,  null=True, blank=True)
-    elabaorated_range = HTMLField(blank=True, null=True,)
-    notes =  HTMLField(blank=True, null=True,)
+    units = models.CharField(max_length=30,  null=True, blank=True)
+    elabaorated_range = models.TextField(blank=True, null=True)
+    notes =  models.TextField(blank=True, null=True)
     amount = models.DecimalField( default=0.0, max_digits=10, decimal_places=2)
     
     def __str__(self):

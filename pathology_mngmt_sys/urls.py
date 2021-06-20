@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from lab.views import Report, UpdateResult, EReport
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     re_path(r'filer/', include('filer.urls')),
-]
+    path("",Report.as_view(),name="report"),
+    path("e-report",EReport.as_view(),name="e_report"),
+    path("update-result/",UpdateResult.as_view(),name="update_result"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
+  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
