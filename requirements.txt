@@ -1,3 +1,4 @@
+Django==3.0
 django-filer
 django-admin-search
 django-tinymce
@@ -5,3 +6,5 @@ django-import-export
 django-admin-charts
 django-bower
 xhtml2pdf
+django-heroku
+gunicorn

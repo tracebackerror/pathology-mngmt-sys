@@ -1,0 +1,1 @@
+web: gunicorn pathology_mngmt_sys.wsgi
