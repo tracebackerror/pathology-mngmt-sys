@@ -10,22 +10,28 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 import base64
+import decimal
 
 class Report(LoginRequiredMixin,TemplateView):
     success_url = reverse_lazy("report")
-    template_name = "lab/report.html"
+    template_name = "lab/home.html"
     extra_context = {}
     login_url = '/admin/login/'
 
     def get(self, request, *args, **kwargs):
         self.extra_context['order_obj'] = None
         self.extra_context['lab_info'] = None
-
+        self.extra_context["is_report"] = "null"
+        
+        fetch_type = request.GET.get("fetch","null")
+        self.extra_context["is_report"] = fetch_type == "report"
         order_id = request.GET.get("order_id",None)
         if order_id:
             order_obj = Order.objects.filter(id=order_id)
             if order_obj:
                 order_obj = order_obj.first()
+                if fetch_type == "invoice":
+                    order_obj.save()
                 report_context = get_report_context(order_obj)
                 self.extra_context.update(report_context)
             else:
@@ -90,6 +96,35 @@ class UpdateResult(View):
             result_obj = ResultThrough.objects.get(id=result_id)
             result_obj.results = result
             result_obj.save()
+            response["status"] = 200
+            response["msg"] = "Result Updates Successfully"
+        return JsonResponse(response)
+    
+    def get(self, request, *args, **kwargs):
+        response = {"status":405,"msg":"METHOD_NOT_ALLOWED"}
+        return JsonResponse(response)
+
+
+class UpdateInvoice(View):
+    def post(self, request, *args, **kwargs):
+        response = {"status":403,"msg":"FORBIDDEN"}
+        if request.is_ajax() and request.user.is_authenticated:
+            order_id = int(request.POST['order_id'])
+            field_id = int(request.POST['field_id'])
+            value = decimal.Decimal(request.POST['value'])
+            order_obj = Order.objects.get(id=order_id)
+            if field_id == 1:
+                order_obj.visiting_charge = value
+            elif field_id == 2:
+                order_obj.other_charge = value
+            elif field_id == 3:
+                order_obj.discount_amount = value
+            elif field_id == 4:
+                order_obj.advance_received = value
+            order_obj.save()   
+            order_obj = Order.objects.get(id=order_id)  
+            response["final_amount"] = str(order_obj.final_amount)
+            response["balance_amount"] = str(order_obj.balance_amount)
             response["status"] = 200
             response["msg"] = "Result Updates Successfully"
         return JsonResponse(response)

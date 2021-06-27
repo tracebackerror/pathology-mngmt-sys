@@ -21,6 +21,7 @@ def get_report_context(order_obj):
                 full_reports[pkg_name] = [res]
         else:
             others_test.append(res)
+
     if len(others_test) > 0:
         full_reports["Others Report"] = others_test
     
@@ -28,6 +29,7 @@ def get_report_context(order_obj):
     context['full_reports_count'] = len(full_reports)
     context['order_obj'] = order_obj
     context['lab_info'] = LabInformation.objects.all().first()
+
     return context
 
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_admin_search',
     'tinymce',
     'import_export',
+    'lab.templatetags.custom_tags',
 ]
 
 MIDDLEWARE = [

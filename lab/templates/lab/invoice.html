@@ -1,0 +1,125 @@
+{% load static %}
+{% load custom_tags %}
+
+<style>
+@page {
+    size: a4 portrait;
+    margin-top: 10mm;
+}
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+    #subInvoiceDiv{
+        height:1300px;
+    }
+}
+</style>
+
+<div id="subInvoiceDiv" class="container" style="width: 60%;border: 2px solid lightgray;padding: 20px;">
+    <table style="width: 100%;table-layout: fixed;">
+        <tr>
+            <td>
+                <h2 style="font-weight: bold;">
+                    INVOICE
+                </h2>            
+                <span>Invoice # {{order_obj.patient.id}}</span>
+                <br>
+                <span>Invoice Date {% now "j F Y" %}</span>
+                <br>  <br>
+                <span style="font-weight: bold;border-bottom: 1px solid black;">Patient Details</span>
+                <br>
+                <span>Name : {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</span>  <br>
+                <span>Age : {{order_obj.patient.age}}</span>  <br>
+                <span>Gender : {{order_obj.patient.gender}}</span>
+            </td>
+            <td style="text-align: end;">
+                <img src="{% static 'images/logo_bw.png' %}" alt="Logo" style="width: 70px;">
+                <h5>{{lab_info.name}}</h5>
+                <span>{{lab_info.address}}</span>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table style="width: 100%;table-layout: fixed;text-align: center;border: 2px solid black;" cellpadding="3">
+        <tr style="border-bottom: 2px solid black;">
+            <th>Test Done</th>
+            <th></th>
+            <th>Amount</th>
+        </tr>
+        {% for pkg_name,test_reports in full_reports %}
+            {% if pkg_name == "Others Report" %}
+                {% for report in test_reports %}
+                    <tr style="border-bottom: 1px solid lightgray;">
+                        <td>{{report.Test.name}}</td>
+                        <td></td>
+                        <td>Rs. {{report.Test.amount}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr style="border-bottom: 1px solid lightgray;">
+                    <td>{{pkg_name}}</td>
+                    <td></td>
+                    <td>{{pkg_name|get_pkg_amt}}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        <tr style="border-top: 2px solid black;border-bottom: 1px solid lightgray;">
+            <td></td>
+            <td style="text-align: right;">Investigation Amount</td>
+            <td>Rs. {{order_obj.investigation_amount}}</td>
+        </tr>
+
+        <tr style="border-bottom: 1px solid lightgray;">
+            <td></td>
+            <td style="text-align: right;">Visiting Charge</td>
+            <td>
+                <input type="number" class="form-control col-md-8 offset-md-3" field-id="1" value="{{order_obj.visiting_charge}}">
+            </td>
+        </tr>
+
+        <tr style="border-bottom: 1px solid lightgray;">
+            <td></td>
+            <td style="text-align: right;">Other Charge</td>
+            <td>
+                <input type="number" class="form-control col-md-8 offset-md-3" field-id="2" value="{{order_obj.other_charge}}">
+            </td>
+        </tr>
+
+        <tr style="border-bottom: 1px solid lightgray;">
+            <td></td>
+            <td style="text-align: right;">Discount Amount</td>
+            <td>
+                <input type="number" class="form-control col-md-8 offset-md-3" field-id="3" value="{{order_obj.discount_amount}}">
+            </td>
+        </tr>
+
+        <tr style="border-bottom: 1px solid lightgray;font-weight: bold;font-size: medium;">
+            <td></td>
+            <td style="text-align: right;">Final Amount</td>
+            <td id="tdFinalAmt">Rs. {{order_obj.final_amount}} /-</td>
+        </tr>
+
+        <tr style="border-bottom: 2px solid black;">
+            <td></td>
+            <td style="text-align: right;">Advance Received</td>
+            <td>
+                <input type="number" class="form-control col-md-8 offset-md-3" field-id="4" value="{{order_obj.advance_received}}">
+            </td>
+        </tr>
+
+        <tr style="font-weight: bold;font-size: medium;">
+            <td></td>
+            <td style="text-align: right;">Balance Amount</td>
+            <td id="tdBalanceAmt">Rs. {{order_obj.balance_amount}} /-</td>
+        </tr>
+    </table>
+
+    <br>
+</div>
+<br>
