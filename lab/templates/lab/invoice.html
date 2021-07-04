@@ -1,125 +1,224 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
 
+{% block head %}
+<title>Invoice</title>
 <style>
-@page {
-    size: a4 portrait;
-    margin-top: 10mm;
-}
-
-@media print {
-    body {
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
+    @page {
+        size: a4 portrait;
+        margin-top: 10mm;
     }
-    #subInvoiceDiv{
-        height:1300px;
+    @media print {
+        body {
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+        }
+        #subInvoiceDiv{
+            height:1300px;
+        }
     }
-}
-</style>
+    </style>
+{% endblock head %}
 
-<div id="subInvoiceDiv" class="container" style="width: 60%;border: 2px solid lightgray;padding: 20px;">
-    <table style="width: 100%;table-layout: fixed;">
-        <tr>
-            <td>
-                <h2 style="font-weight: bold;">
-                    INVOICE
-                </h2>            
-                <span>Invoice # {{order_obj.patient.id}}</span>
-                <br>
-                <span>Invoice Date {% now "j F Y" %}</span>
-                <br>  <br>
-                <span style="font-weight: bold;border-bottom: 1px solid black;">Patient Details</span>
-                <br>
-                <span>Name : {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</span>  <br>
-                <span>Age : {{order_obj.patient.age}}</span>  <br>
-                <span>Gender : {{order_obj.patient.gender}}</span>
-            </td>
-            <td style="text-align: end;">
-                <img src="{% static 'images/logo_bw.png' %}" alt="Logo" style="width: 70px;">
-                <h5>{{lab_info.name}}</h5>
-                <span>{{lab_info.address}}</span>
-            </td>
-        </tr>
-    </table>
 
-    <br>
+{% block content %}
 
-    <table style="width: 100%;table-layout: fixed;text-align: center;border: 2px solid black;" cellpadding="3">
-        <tr style="border-bottom: 2px solid black;">
-            <th>Test Done</th>
-            <th></th>
-            <th>Amount</th>
-        </tr>
-        {% for pkg_name,test_reports in full_reports %}
-            {% if pkg_name == "Others Report" %}
-                {% for report in test_reports %}
-                    <tr style="border-bottom: 1px solid lightgray;">
-                        <td>{{report.Test.name}}</td>
-                        <td></td>
-                        <td>Rs. {{report.Test.amount}}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr style="border-bottom: 1px solid lightgray;">
-                    <td>{{pkg_name}}</td>
-                    <td></td>
-                    <td>{{pkg_name|get_pkg_amt}}</td>
-                </tr>
-            {% endif %}
+<br>
+
+<div class="container">
+    <div class="col-md-6 offset-md-3">
+        {% for message in messages %}
+        {% if "success" in message.extra_tags %}
+        <div class="alert alert-success text-center">
+            <strong>{{ message|escape }}</strong>
+        </div>
+        {% else %}
+        <div class="alert alert-danger text-center">
+            <strong>{{ message|escape }}</strong>
+        </div>
+        {% endif %}
         {% endfor %}
+    </div>
+    <form method="GET" onsubmit="$('#spinnerDiv').show();">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="order_id" id="order_id" placeholder="Order ID"
+                    value={{request.GET.order_id}}>
+            </div>
+            <div class="col-md-1 text-left">
+                <button type="submit" id="btnFetch" class="btn btn-info">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+            {% if order_obj %}
+            <div class="col-md-3 text-right">
+                <button type="button" onclick="printInvoice()" class="btn btn-outline-info">
+                    <i class="fa fa-print" title="Print Invoice" aria-hidden="true"></i>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</div>
 
-        <tr style="border-top: 2px solid black;border-bottom: 1px solid lightgray;">
-            <td></td>
-            <td style="text-align: right;">Investigation Amount</td>
-            <td>Rs. {{order_obj.investigation_amount}}</td>
-        </tr>
+<br> <br>
 
-        <tr style="border-bottom: 1px solid lightgray;">
-            <td></td>
-            <td style="text-align: right;">Visiting Charge</td>
-            <td>
-                <input type="number" class="form-control col-md-8 offset-md-3" field-id="1" value="{{order_obj.visiting_charge}}">
-            </td>
-        </tr>
+<div id="spinnerDiv" class="spinner-border text-success" role="status"
+    style="display:none;width: 3rem; height: 3rem;  position: fixed;left: 0;right: 0;top: 0;bottom: 0;margin: auto;">
+    <span class="sr-only">Loading...</span>
+</div>
 
-        <tr style="border-bottom: 1px solid lightgray;">
-            <td></td>
-            <td style="text-align: right;">Other Charge</td>
-            <td>
-                <input type="number" class="form-control col-md-8 offset-md-3" field-id="2" value="{{order_obj.other_charge}}">
-            </td>
-        </tr>
-
-        <tr style="border-bottom: 1px solid lightgray;">
-            <td></td>
-            <td style="text-align: right;">Discount Amount</td>
-            <td>
-                <input type="number" class="form-control col-md-8 offset-md-3" field-id="3" value="{{order_obj.discount_amount}}">
-            </td>
-        </tr>
-
-        <tr style="border-bottom: 1px solid lightgray;font-weight: bold;font-size: medium;">
-            <td></td>
-            <td style="text-align: right;">Final Amount</td>
-            <td id="tdFinalAmt">Rs. {{order_obj.final_amount}} /-</td>
-        </tr>
-
-        <tr style="border-bottom: 2px solid black;">
-            <td></td>
-            <td style="text-align: right;">Advance Received</td>
-            <td>
-                <input type="number" class="form-control col-md-8 offset-md-3" field-id="4" value="{{order_obj.advance_received}}">
-            </td>
-        </tr>
-
-        <tr style="font-weight: bold;font-size: medium;">
-            <td></td>
-            <td style="text-align: right;">Balance Amount</td>
-            <td id="tdBalanceAmt">Rs. {{order_obj.balance_amount}} /-</td>
-        </tr>
-    </table>
-
+{% if order_obj %}
+<div id="invoiceMainDiv">
+    <div id="subInvoiceDiv" class="container" style="width: 60%;border: 2px solid lightgray;padding: 20px;">
+        <table style="width: 100%;table-layout: fixed;">
+            <tr>
+                <td>
+                    <h2 style="font-weight: bold;">
+                        INVOICE
+                    </h2>            
+                    <span>Invoice # {{order_obj.patient.id}}</span>
+                    <br>
+                    <span>Invoice Date {% now "j F Y" %}</span>
+                    <br>  <br>
+                    <span style="font-weight: bold;border-bottom: 1px solid black;">Patient Details</span>
+                    <br>
+                    <span>Name : {{order_obj.patient.first_name}} {{order_obj.patient.last_name}}</span>  <br>
+                    <span>Age : {{order_obj.patient.age}}</span>  <br>
+                    <span>Gender : {{order_obj.patient.gender}}</span>
+                </td>
+                <td style="text-align: end;">
+                    <img src="{% static 'images/logo_bw.png' %}" alt="Logo" style="width: 70px;">
+                    <h5>{{lab_info.name}}</h5>
+                    <span>{{lab_info.address}}</span>
+                </td>
+            </tr>
+        </table>
+    
+        <br>
+    
+        <table style="width: 100%;table-layout: fixed;text-align: center;border: 2px solid black;" cellpadding="3">
+            <tr style="border-bottom: 2px solid black;">
+                <th>Test Done</th>
+                <th></th>
+                <th>Amount</th>
+            </tr>
+            {% for pkg_name,test_reports in full_reports %}
+                {% if pkg_name == "Others Report" %}
+                    {% for report in test_reports %}
+                        <tr style="border-bottom: 1px solid lightgray;">
+                            <td>{{report.Test.name}}</td>
+                            <td></td>
+                            <td>Rs. {{report.Test.amount}}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr style="border-bottom: 1px solid lightgray;">
+                        <td>{{pkg_name}}</td>
+                        <td></td>
+                        <td>{{pkg_name|get_pkg_amt}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+    
+            <tr style="border-top: 2px solid black;border-bottom: 1px solid lightgray;">
+                <td></td>
+                <td style="text-align: right;">Investigation Amount</td>
+                <td>Rs. {{order_obj.investigation_amount}}</td>
+            </tr>
+    
+            <tr style="border-bottom: 1px solid lightgray;">
+                <td></td>
+                <td style="text-align: right;">Visiting Charge</td>
+                <td>
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-8 offset-md-3" field-id="1" value="{{order_obj.visiting_charge}}">
+                </td>
+            </tr>
+    
+            <tr style="border-bottom: 1px solid lightgray;">
+                <td></td>
+                <td style="text-align: right;">Other Charge</td>
+                <td>
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-8 offset-md-3" field-id="2" value="{{order_obj.other_charge}}">
+                </td>
+            </tr>
+    
+            <tr style="border-bottom: 1px solid lightgray;">
+                <td></td>
+                <td style="text-align: right;">Discount Amount</td>
+                <td>
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-8 offset-md-3" field-id="3" value="{{order_obj.discount_amount}}">
+                </td>
+            </tr>
+    
+            <tr style="border-bottom: 1px solid lightgray;font-weight: bold;font-size: medium;">
+                <td></td>
+                <td style="text-align: right;">Final Amount</td>
+                <td id="tdFinalAmt">Rs. {{order_obj.final_amount}} /-</td>
+            </tr>
+    
+            <tr style="border-bottom: 2px solid black;">
+                <td></td>
+                <td style="text-align: right;">Advance Received</td>
+                <td>
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-8 offset-md-3" field-id="4" value="{{order_obj.advance_received}}">
+                </td>
+            </tr>
+    
+            <tr style="font-weight: bold;font-size: medium;">
+                <td></td>
+                <td style="text-align: right;">Balance Amount</td>
+                <td id="tdBalanceAmt">Rs. {{order_obj.balance_amount}} /-</td>
+            </tr>
+        </table>
+    
+        <br>
+    </div>
     <br>
 </div>
-<br>
+{% endif %}
+
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('input[type=text]').keyup(function () {
+            var value = $(this).val();
+            var field_id = $(this).attr("field-id");
+            var order_id = "{{order_obj.id}}";
+            $.ajax({
+                url: "{% url 'lab:update_invoice' %}",
+                method: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+                    'field_id': field_id,
+                    'order_id': order_id,
+                    'value':value
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        $("#tdFinalAmt").html("Rs. "+data.final_amount+" /-");
+                        $("#tdBalanceAmt").html("Rs. "+data.balance_amount+" /-");
+                    }else{
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    });
+
+    function printInvoice() {
+        $('input[type=number]').each(function () {
+            $(this).replaceWith("Rs. "+$(this).val());
+        })
+        var printContents = document.getElementById("invoiceMainDiv").innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        window.location.reload();
+    }
+</script>
+{% endblock script %}

@@ -23,11 +23,11 @@ def post_save_order(sender, instance, **kwargs):
     pkg_global_test_list = []
     for pkg in pkg_list:
         pkg_global_test_list.extend(pkg.linked_test.values_list("id",flat=True).all())    
-    test_list = instance.investigation_test.all()
+    test_list = instance.investigation_test.all().exclude(id__in = pkg_global_test_list)
     if pkg_list:
         investigation_amt += pkg_list.aggregate(Sum('amount'))['amount__sum']
     if test_list:
-        investigation_amt += test_list.exclude(id__in = pkg_global_test_list).aggregate(Sum('amount'))['amount__sum']
+        investigation_amt += test_list.aggregate(Sum('amount'))['amount__sum']
 
     instance.investigation_amount = investigation_amt
     final_amt = investigation_amt + instance.visiting_charge + instance.other_charge - instance.discount_amount
