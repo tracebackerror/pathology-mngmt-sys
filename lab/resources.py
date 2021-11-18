@@ -27,8 +27,3 @@ class TestResource(resources.ModelResource):
 
     class Meta:
         model = Test
-
-class PackageResource(resources.ModelResource):
-
-    class Meta:
-        model = Package
