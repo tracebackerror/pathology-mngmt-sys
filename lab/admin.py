@@ -78,8 +78,11 @@ class DoctorAdmin(AdvancedSearchAdmin):
    
 admin.site.register(Doctor, DoctorAdmin)
 
+class TestResource(resources.ModelResource):
+    class Meta:
+        model = Test
 
-class TestAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
+class TestAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Test._meta.fields ]
    list_display_links = ['name']
    search_form = TestFormSearch
