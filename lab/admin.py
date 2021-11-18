@@ -78,8 +78,11 @@ class DoctorAdmin(AdvancedSearchAdmin):
    
 admin.site.register(Doctor, DoctorAdmin)
 
+class TestResource(resources.ModelResource):
+    class Meta:
+        model = Test
 
-class TestAdmin(ImportExportMixin, AdvancedSearchAdmin):
+class TestAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Test._meta.fields ]
    list_display_links = ['name']
    search_form = TestFormSearch
@@ -88,11 +91,15 @@ class TestAdmin(ImportExportMixin, AdvancedSearchAdmin):
 admin.site.register(Test, TestAdmin)
 
 
-class PackageAdmin(ImportExportMixin, AdvancedSearchAdmin):
+class PackageResource(resources.ModelResource):
+    class Meta:
+        model = Package
+class PackageAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Package._meta.fields ]
    filter_horizontal = ['linked_test']
    list_display_links = ['name']
    search_form = PackageFormSearch
+   resource_class = PackageResource
    
    
    
