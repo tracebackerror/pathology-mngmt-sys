@@ -91,15 +91,12 @@ class TestAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
 admin.site.register(Test, TestAdmin)
 
 
-class PackageResource(resources.ModelResource):
-    class Meta:
-        model = Package
-class PackageAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
+
+class PackageAdmin(AdvancedSearchAdmin):
    list_display = [field.name for field in Package._meta.fields ]
    filter_horizontal = ['linked_test']
    list_display_links = ['name']
    search_form = PackageFormSearch
-   resource_class = PackageResource
    
    
    
