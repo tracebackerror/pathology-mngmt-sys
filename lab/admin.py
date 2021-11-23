@@ -108,7 +108,6 @@ class ResultThroughInline(admin.TabularInline):
 
 
 class OrderAdmin(ImportExportMixin, AdvancedSearchAdmin):
-
     def formfield_for_manytomany(self, *args, **kwargs):  # pylint: disable=arguments-differ
         # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
         #                   https://code.djangoproject.com/ticket/12203 and
@@ -119,7 +118,7 @@ class OrderAdmin(ImportExportMixin, AdvancedSearchAdmin):
         return super().formfield_for_manytomany(*args, **kwargs)
 
     search_form = OrderFormSearch
-    list_display = ['order_date', 'patient']
+    list_display = ['id', 'order_date', 'patient']
     filter_horizontal = ('investigation_test', 'investigation_package')
     inlines = (ResultThroughInline,)
     date_hierarchy = 'order_date'
