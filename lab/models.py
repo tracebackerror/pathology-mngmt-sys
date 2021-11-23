@@ -115,8 +115,8 @@ class ResultThrough(models.Model):
         # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
         #                   https://code.djangoproject.com/ticket/12203 and
         #                   https://github.com/django/django/pull/10829
-        auto_created = True
-        
+        #auto_created = True
+        pass
 
 
 
