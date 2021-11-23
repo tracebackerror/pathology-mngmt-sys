@@ -1,8 +1,8 @@
 Django==3.0
 django-filer
-django-admin-search
+django-admin-search==0.3.5
 django-tinymce
-django-import-export
+django-import-export==2.6.1
 django-admin-charts
 django-bower
 xhtml2pdf
