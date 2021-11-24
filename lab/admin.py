@@ -79,8 +79,9 @@ class DoctorAdmin(AdvancedSearchAdmin):
 admin.site.register(Doctor, DoctorAdmin)
 
 
-class TestAdmin(DraggableMPTTAdmin, AdvancedSearchAdmin, ImportExportActionModelAdmin, ):
-    list_display = [field.name for field in Test._meta.fields] + ['tree_actions', 'indented_title',]
+class TestAdmin(ImportExportModelAdmin, DraggableMPTTAdmin,):
+    list_display = ['tree_actions', 'indented_title',] + [field.name for field in Test._meta.fields]
+    search_fields = [field.name for field in Test._meta.fields]
     list_display_links = ['name']
     search_form = TestFormSearch
     resource_class = TestResource
@@ -90,12 +91,14 @@ class TestAdmin(DraggableMPTTAdmin, AdvancedSearchAdmin, ImportExportActionModel
 admin.site.register(Test, TestAdmin)
 
 
-class PackageAdmin(AdvancedSearchAdmin):
+class PackageAdmin(ImportExportModelAdmin):
     list_display = [field.name for field in Package._meta.fields]
+    search_fields = [field.name for field in Package._meta.fields]
     date_hierarchy = 'created'
     filter_horizontal = ['linked_test']
     list_display_links = ['name']
     search_form = PackageFormSearch
+    resource_class = PackageResource
 
 
 admin.site.register(Package, PackageAdmin)
