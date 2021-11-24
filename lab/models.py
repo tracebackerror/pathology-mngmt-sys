@@ -7,6 +7,7 @@ from .choice_option import *
 from django.db.models import Count, Sum
 from filer.fields.image import FilerImageField
 from jsignature.fields import JSignatureField
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Patient(models.Model):
@@ -51,8 +52,7 @@ class Doctor(models.Model):
         return f"{self.id} - {self.first_name} - {self.contact_no}"
     
 
-
-class Test(models.Model):
+class Test(MPTTModel):
     name = models.CharField(max_length=100)
     low_ref = models.CharField(max_length=30,  null=True, blank=True)
     high_ref = models.CharField(max_length=30,  null=True, blank=True)
@@ -62,10 +62,14 @@ class Test(models.Model):
     amount = models.DecimalField( default=0.0, max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def __str__(self):
         return f"{self.name} - {self.amount}"
-            
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
@@ -132,9 +136,10 @@ class ResultThrough(models.Model):
         # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
         #                   https://code.djangoproject.com/ticket/12203 and
         #                   https://github.com/django/django/pull/10829
+        # Comment While Doing Make Migrations
         auto_created = True
         # Uncomment While Doing Make Migrations
-        #pass
+        # spass
 
 
 

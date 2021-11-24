@@ -82,8 +82,11 @@
     <div class="container report-sub-div" style="width: 70%;">
         <div class="header">
             <div class="row">
-                <div class="col-md-10">
-                    <img src="{% static 'images/icon.png' %}" alt="Logo" style="width: 12%;">
+                 <div class="col-md-2">
+                    <img src="{% static 'images/icon.png' %}" alt="Logo" style="width: 150px;">
+                </div>
+                <div class="col-md-8">
+
                     <h3 style="width: 85%;letter-spacing: 3px;font-weight: bold;">
                         {{lab_info.name}}
                         <p style="font-size: medium;width: 90%;letter-spacing: 0px;font-weight: normal;">
@@ -91,7 +94,7 @@
                     </h3>
                 </div>
                 <div class="col-md-2">
-                    {% qr_from_text order_obj.id size=10 border=6 %}
+                    {% qr_from_text order_obj.id size="S" border=6 %}
                 </div>
             </div>
             <div align="right">

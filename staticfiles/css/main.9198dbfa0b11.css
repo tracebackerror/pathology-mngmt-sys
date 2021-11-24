@@ -1,0 +1,61 @@
+hr {
+    background-color: black;
+    height:1px;
+}
+
+td {
+    vertical-align: baseline;
+}
+
+.header{
+    background-color: #ffde9f;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px; 
+}
+
+#reportMainDiv{
+    font-family:'Times New Roman', Times, serif;
+}
+
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+@page {
+    size: a4 portrait;
+    margin: 5mm;
+}
+
+@media print {
+    .report-sub-div {
+        clear: both;
+        page-break-after: always;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+    
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .temp-div {
+        display: none;
+    }
+}
+
+@media screen {
+    footer {
+      display: none;
+    }
+}

@@ -11,3 +11,4 @@ gunicorn
 pytz==2021.3
 django-jsignature==0.10
 django-qr-code==2.3.0
+django-mptt==0.13.4

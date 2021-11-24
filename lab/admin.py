@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.db.models.functions import TruncDay
 from django.http import JsonResponse
 from django.urls import path, include, re_path
+from mptt.admin import DraggableMPTTAdmin
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportMixin, ImportExportActionModelAdmin
@@ -78,8 +79,8 @@ class DoctorAdmin(AdvancedSearchAdmin):
 admin.site.register(Doctor, DoctorAdmin)
 
 
-class TestAdmin(AdvancedSearchAdmin, ImportExportActionModelAdmin):
-    list_display = [field.name for field in Test._meta.fields]
+class TestAdmin(DraggableMPTTAdmin, AdvancedSearchAdmin, ImportExportActionModelAdmin, ):
+    list_display = [field.name for field in Test._meta.fields] + ['tree_actions', 'indented_title',]
     list_display_links = ['name']
     search_form = TestFormSearch
     resource_class = TestResource
