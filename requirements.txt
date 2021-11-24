@@ -8,3 +8,4 @@ django-bower
 xhtml2pdf
 django-heroku
 gunicorn
+pytz==2021.3

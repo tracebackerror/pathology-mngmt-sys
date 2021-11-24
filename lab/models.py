@@ -14,11 +14,22 @@ class Patient(models.Model):
     contact_no = models.CharField(max_length=10,  null=True, blank=True)
     email =  models.EmailField(max_length=70,blank=True, null=True,)
     age = models.CharField(max_length=50,  null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    state = models.CharField(max_length=20,  null=True, blank=True)
+    city = models.CharField(max_length=20,  null=True, blank=True)
+    pincode = models.CharField(max_length=8,  null=True, blank=True)
+
     gender =   models.CharField(
         choices = GenderChoice.choices, 
         default= GenderChoice.MALE,
          max_length=100,)
-         
+
+    alternate_contact_person = models.CharField(max_length=20, null=True, blank=True)
+    number_of_family = models.CharField(max_length=4,  null=True, blank=True)
+    name_of_family_member = models.TextField(null=True, blank=True)
+    registered_by = models.CharField(max_length=20, null=True, blank=True)
+    referred_by = models.CharField(max_length=20, null=True, blank=True)
+    card_number = models.CharField(max_length=20, null=True, blank=True)
     date = models.DateTimeField(default=datetime.now, blank=False, null=False)
     
     def __str__(self):
@@ -47,7 +58,9 @@ class Test(models.Model):
     elabaorated_range = models.TextField(blank=True, null=True)
     notes =  models.TextField(blank=True, null=True)
     amount = models.DecimalField( default=0.0, max_digits=10, decimal_places=2)
-    
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.name} - {self.amount}"
             
@@ -56,6 +69,8 @@ class Package(models.Model):
     name = models.CharField(max_length=200)
     amount = models.DecimalField( default=0.0, max_digits=10, decimal_places=2)
     linked_test = models.ManyToManyField(Test)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta: 
         ordering = ['name']
@@ -116,6 +131,7 @@ class ResultThrough(models.Model):
         #                   https://code.djangoproject.com/ticket/12203 and
         #                   https://github.com/django/django/pull/10829
         auto_created = True
+        # Uncomment While Doing Make Migrations
         #pass
 
 

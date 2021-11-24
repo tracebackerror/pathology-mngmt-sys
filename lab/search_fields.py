@@ -2,6 +2,7 @@ from .models import *
 from django.forms import ModelForm, Form
 from django.forms import DateField, CharField, ChoiceField, TextInput
 from django.forms import *
+from django.contrib.admin import widgets
 
 
 class PatientFormSearch(Form):
@@ -22,17 +23,20 @@ class DoctorFormSearch(Form):
 
 
 class TestFormSearch(Form):
+    id = CharField(required=False)
     name = CharField(required=False)
     low_ref = CharField(required=False)
     high_ref = CharField(required=False)
 
-    amount = DecimalField(required=False)
+    amount = CharField(required=False)
 
 
 class PackageFormSearch(Form):
+    id = CharField(required=False)
     name = CharField(required=False)
     amount = DecimalField(required=False)
 
 
 class OrderFormSearch(Form):
-    order_date = DateTimeField(required=False)
+    id = CharField(required=False)
+    order_date = DateTimeField(required=False, )

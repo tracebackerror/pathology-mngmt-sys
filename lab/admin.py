@@ -78,11 +78,12 @@ class DoctorAdmin(AdvancedSearchAdmin):
 admin.site.register(Doctor, DoctorAdmin)
 
 
-class TestAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
+class TestAdmin(AdvancedSearchAdmin, ImportExportActionModelAdmin):
     list_display = [field.name for field in Test._meta.fields]
     list_display_links = ['name']
     search_form = TestFormSearch
     resource_class = TestResource
+    date_hierarchy = 'created'
 
 
 admin.site.register(Test, TestAdmin)
@@ -90,6 +91,7 @@ admin.site.register(Test, TestAdmin)
 
 class PackageAdmin(AdvancedSearchAdmin):
     list_display = [field.name for field in Package._meta.fields]
+    date_hierarchy = 'created'
     filter_horizontal = ['linked_test']
     list_display_links = ['name']
     search_form = PackageFormSearch
@@ -107,7 +109,7 @@ class ResultThroughInline(admin.TabularInline):
     extra = 0
 
 
-class OrderAdmin(ImportExportMixin, AdvancedSearchAdmin):
+class OrderAdmin(AdvancedSearchAdmin, ImportExportActionModelAdmin):
     def formfield_for_manytomany(self, *args, **kwargs):  # pylint: disable=arguments-differ
         # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
         #                   https://code.djangoproject.com/ticket/12203 and
