@@ -168,8 +168,12 @@
                 {% for node,structure in drilldown|tree_info %}
 
 
+
                 <tr>
-                    <td>{{node.name}}</td>
+
+                    <td>{% if node.is_root_node and node.get_children %} <b>{% endif %}{{node.name}} {% if node.is_root_node and node.get_children %} </b>{% endif %}</td>
+
+
                     <td>
                         <input type="text" class="form-control col-md-8 offset-md-3" result-id="{{report.id}}"
                             value="{{report.results}}">
@@ -231,6 +235,21 @@
 
 {% block script %}
 <script>
+ var report_tests = {}
+         {% for report in test_reports %}
+                {% drilldown_tree_for_node report.Test as drilldown %}
+                {% for node,structure in drilldown|tree_info %}
+
+                        {% if node.is_root_node and node.get_children %}
+                            report_tests[node.name]  = []
+                        {% endif %}
+                            report_tests[get_root.name].push({
+                              "Name": node.name,
+                            });
+
+
+                {% endfor %}
+         {% endfor %}
     $(document).ready(function () {
 
 
