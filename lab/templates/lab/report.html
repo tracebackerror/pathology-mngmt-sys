@@ -174,9 +174,10 @@
                     <td>{% if node.is_root_node and node.get_children %} <b>{% endif %}{{node.name}} {% if node.is_root_node and node.get_children %} </b>{% endif %}</td>
 
 
-                    <td>
+                    <td>{% if not node.is_root_node and not node.get_children %}
                         <input type="text" class="form-control col-md-8 offset-md-3" result-id="{{report.id}}"
                             value="{{report.results}}">
+                        {% endif %}
                     </td>
                     {% if node.low_ref and node.high_ref %}
                     <td>{{node.low_ref }} - {{node.high_ref }} {{node.units }}</td>
@@ -243,10 +244,9 @@
                         {% if node.is_root_node and node.get_children %}
                             report_tests[node.name]  = []
                         {% endif %}
-                            report_tests[get_root.name].push({
+                            report_tests[node.get_root.name].push({
                               "Name": node.name,
                             });
-
 
                 {% endfor %}
          {% endfor %}
