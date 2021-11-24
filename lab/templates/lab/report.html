@@ -2,6 +2,9 @@
 {% load static %}
 {% load thumbnail %}
 {% load qr_code %}
+{% load mptt_tags %}
+
+
 
 {% block head %}
 <title>Report</title>
@@ -159,30 +162,39 @@
                 <th style="padding-bottom: 20px;">RESULT</th>
                 <th style="padding-bottom: 20px;max-width: 20%;">NORMAL RANGE</th>
             </tr>
+
             {% for report in test_reports %}
-            <tr>
-                <td>{{report.Test.name}}</td>
-                <td>
-                    <input type="text" class="form-control col-md-8 offset-md-3" result-id="{{report.id}}"
-                        value="{{report.results}}">
-                </td>
-                {% if report.Test.low_ref and report.Test.high_ref %}
-                <td>{{report.Test.low_ref }} - {{report.Test.high_ref }} {{report.Test.units }}</td>
-                {% else %}
-                <td>
-                    <pre style="border: none;font-family:'Times New Roman', Times, serif;">{{report.Test.elabaorated_range }}</pre>
-                </td>
+                {% drilldown_tree_for_node report.Test as drilldown %}
+                {% for node,structure in drilldown|tree_info %}
+
+
+                <tr>
+                    <td>{{node.name}}</td>
+                    <td>
+                        <input type="text" class="form-control col-md-8 offset-md-3" result-id="{{report.id}}"
+                            value="{{report.results}}">
+                    </td>
+                    {% if node.low_ref and node.high_ref %}
+                    <td>{{node.low_ref }} - {{node.high_ref }} {{node.units }}</td>
+                    {% else %}
+                    <td>
+                        <pre style="border: none;font-family:'Times New Roman', Times, serif;">{{node.elabaorated_range }}</pre>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% if node.notes %}
+                <tr>
+                    <td colspan="2"><small id="helpId" class="form-text text-muted text-left">
+                            <pre style="border: none;">{{node.notes}}</pre>
+                        </small></td>
+                </tr>
                 {% endif %}
-            </tr>
-            {% if report.Test.notes %}
-            <tr>
-                <td colspan="2"><small id="helpId" class="form-text text-muted text-left">
-                        <pre style="border: none;">{{report.Test.notes}}</pre>
-                    </small></td>
-            </tr>
-            {% endif %}
+                {% endfor %}
             {% endfor %}
         </table>
+
+
+
         <div class="temp-div">
             <br> <br><br> <br>
             <div align="right">
@@ -220,6 +232,8 @@
 {% block script %}
 <script>
     $(document).ready(function () {
+
+
         $('.report-sub-div').each(function () {
             var tr_count = $(this).children('table').children('tbody').children('tr');
             if (tr_count.length > 12) {

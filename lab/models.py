@@ -144,6 +144,7 @@ class ResultThrough(models.Model):
 
 
 
+
 class LabInformation(models.Model):
     name = models.CharField(max_length=200, default="LAB")
     address = models.TextField(blank=True, null=True)
