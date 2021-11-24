@@ -6,9 +6,11 @@ from django.contrib.admin import widgets
 
 
 class PatientFormSearch(Form):
+    id = CharField(required=False)
     first_name = CharField(required=False)
     last_name = CharField(required=False)
     contact_no = CharField(required=False)
+    card_number = CharField(required=False)
 
 
 class DoctorFormSearch(Form):

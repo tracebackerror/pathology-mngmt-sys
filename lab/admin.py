@@ -24,7 +24,7 @@ class OrderInline(admin.StackedInline):
     extra = 0
 
 
-class PatientAdmin(ImportExportModelAdmin, AdvancedSearchAdmin):
+class PatientAdmin(AdvancedSearchAdmin, ImportExportActionModelAdmin):
     resource_class = PatientResource
     list_display = [field.name for field in Patient._meta.fields]
     list_display_links = ['first_name']

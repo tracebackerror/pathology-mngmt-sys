@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'tinymce',
     'import_export',
     'lab.templatetags.custom_tags',
+    'jsignature',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +172,8 @@ DEFAULT_FROM_EMAIL = 'user744826@gmail.com'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+#JS SIGN
+JSIGNATURE_WIDTH = 500
+JSIGNATURE_HEIGHT = 200
+JSIGNATURE_JQUERY = 'admin'

@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from .choice_option import *
 from django.db.models import Count, Sum
 from filer.fields.image import FilerImageField
+from jsignature.fields import JSignatureField
 
 
 class Patient(models.Model):
@@ -31,7 +32,8 @@ class Patient(models.Model):
     referred_by = models.CharField(max_length=20, null=True, blank=True)
     card_number = models.CharField(max_length=20, null=True, blank=True)
     date = models.DateTimeField(default=datetime.now, blank=False, null=False)
-    
+    signature = JSignatureField(null=True, blank=True)
+
     def __str__(self):
         return f"{self.id} - {self.first_name} - {self.contact_no}"
     
