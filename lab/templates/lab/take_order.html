@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Take Order</title>
+
+<link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.css' %}">
+
+<style>
+    .form-control {
+        height: 35px;
+        background-color: lightyellow
+    }
+
+    .form-control:focus {
+        background-color: lightyellow
+    }
+
+    body {
+        background-color: gainsboro;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <form method="post">
+        {% csrf_token %}
+        <br>
+        <div class="container">
+            <div class="alert-danger">
+                {{pform.errors}}
+                {{oform.errors}}
+            </div>
+        </div>
+        <div id="divPatient" class="container">
+            <div class="row mb-1">
+                <b>Patient Details</b>
+            </div>
+            <div class="row" style="border: 1px solid gray;padding:10px">
+                <div class="col-md-3 mb-2">
+                    <span>{{oform.patient.label}}</span>
+                    {{oform.patient}}
+                </div>
+                {% for input in pform %}
+                <div class="col-md-3 mb-2">
+                    <span>{{input.label}}</span>
+                    {{input}}
+                </div>
+                {% endfor %}
+                <div class="col-md-3 mb-2">
+                    <span>{{oform.referred_by.label}}</span>
+                    {{oform.referred_by}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div id="divOrder" class="container">
+            <div class="row mb-1">
+                <b>Order Details</b>
+            </div>
+            <div class="row" style="border: 1px solid gray;padding:10px">
+                <div class="row container">
+                    <div class="col-md-4 mb-2">
+                        <span>{{oform.consulted_by.label}}</span>
+                        {{oform.consulted_by}}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <span>{{oform.sample_collected_at.label}}</span>
+                        {{oform.sample_collected_at}}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <span>{{oform.sample_collection_datetime.label}}</span>
+                        {{oform.sample_collection_datetime}}
+                    </div>
+                </div>
+                <div class="row container">
+                    <div class="col-md-6 mb-2">
+                        <span>{{oform.investigation_test.label}}</span>
+                        {{oform.investigation_test}}
+                        <small style="color: grey;">Hold mouse and up or down, to select more than one</small>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span>{{oform.investigation_package.label}}</span>
+                        {{oform.investigation_package}}
+                        <small style="color: grey;">Hold mouse and up or down, to select more than one</small>
+                    </div>
+                </div>
+                <div class="row container">
+                    <div class="col-md-6 mb-auto mt-auto">
+                        <span>{{oform.payment_type.label}}</span>
+                        {{oform.payment_type}}
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span>{{oform.payment_notes.label}}</span>
+                        {{oform.payment_notes}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container text-center">
+            <button type="submit" class="btn btn-info">Go For Billing</button>
+        </div>
+    </form>
+    <br><br><br>
+</div>
+
+{% endblock content %}
+
+
+{% block script %}
+
+<script src="{% static 'js/jquery.datetimepicker.full.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#id_sample_collection_datetime').datetimepicker({
+            format:'Y-m-d H:i',
+        });
+        $("#id_patient option[value='{{patient}}']").prop("selected", true);
+        $("#id_patient").change(function () {
+            location.replace("?" + $(this).serialize())
+        })
+    });
+</script>
+{% endblock script %}

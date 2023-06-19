@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from lab.views import Dashboard
+from lab.views import TakeOrder
 from django.conf import settings
 from django.conf.urls.static import static
+from lab.views import UserLogin
 
 urlpatterns = [
+    path("",UserLogin.as_view(),name="login_global"),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     re_path(r'filer/', include('filer.urls')),
-    path("",Dashboard.as_view(),name="dashboard"),
     path("lab/",include("lab.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

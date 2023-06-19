@@ -22,7 +22,7 @@ class Patient(models.Model):
     date = models.DateTimeField(default=datetime.now, blank=False, null=False)
     
     def __str__(self):
-        return f"{self.id} - {self.first_name} - {self.contact_no}"
+        return f"{self.contact_no} - {self.first_name}"
     
     
 class Doctor(models.Model):
@@ -69,7 +69,7 @@ class Order(models.Model):
 
     order_date = models.DateTimeField(default=datetime.now, blank=False, null=False)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=False)
-    referred_by = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True, blank=True, related_name="referred_by")
+    referred_by = models.CharField(max_length=100, default="Dr. ")
     consulted_by = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True, blank=True, related_name="consulted_by")
     sample_collected_at = models.CharField(
         choices=SampleCollectionType.choices,

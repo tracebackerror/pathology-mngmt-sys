@@ -18,7 +18,7 @@ import json
 
 class OrderInline( admin.StackedInline):
     
-    raw_id_fields = ("referred_by", "consulted_by",)
+    raw_id_fields = ("consulted_by",)
     filter_horizontal = ('investigation_test',)
     model = Order
     extra = 0
@@ -66,11 +66,10 @@ class PatientAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
             .order_by("-date_daily")
         )
 
-   
 admin.site.register(Patient, PatientAdmin)
 
 
-class DoctorAdmin(AdvancedSearchAdmin):
+class DoctorAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Doctor._meta.fields ]
    list_display_links = ['first_name'] 
    search_form = DoctorFormSearch
@@ -89,7 +88,7 @@ admin.site.register(Test, TestAdmin)
 
 
 
-class PackageAdmin(AdvancedSearchAdmin):
+class PackageAdmin(ImportExportActionModelAdmin, AdvancedSearchAdmin):
    list_display = [field.name for field in Package._meta.fields ]
    filter_horizontal = ['linked_test']
    list_display_links = ['name']
@@ -110,7 +109,7 @@ class ResultThroughInline(admin.TabularInline):
     model = ResultThrough
     extra = 0
     
-class OrderAdmin(ImportExportMixin, AdvancedSearchAdmin):
+class OrderAdmin(AdvancedSearchAdmin):
     
    def formfield_for_manytomany(self, *args, **kwargs):  # pylint: disable=arguments-differ
         # TODO(dmu) MEDIUM: Remove `auto_created = True` after these issues are fixed:
@@ -145,7 +144,7 @@ admin.site.register(ResultThrough, ResultThroughAdmin)
 
 
 
-class LabInformationAdmin(admin.ModelAdmin):
+class LabInformationAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
    list_display = [field.name for field in LabInformation._meta.fields ]
    list_display_links = ['name'] 
    

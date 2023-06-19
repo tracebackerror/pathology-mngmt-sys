@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Manage Order</title>
+
+<style>
+    tr,
+    th,
+    td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    thead th {
+        border: 1px solid rgb(185, 185, 185) !important;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<br>
+<div class="container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr class="table-active" style="border: 1px solid black;">
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Patient Name</th>
+                <th>Referred By</th>
+                <th>Consulted By</th>
+                <th>Final Amount</th>
+                <th>Payment Status</th>
+                <th>Report</th>
+                <th>Invoice</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in order_list %}
+            <tr>
+                <td scope="row">{{order.id}}</td>
+                <td>{{order.order_date}}</td>
+                <td>{{order.patient.first_name}} {{order.patient.last_name}}</td>
+                <td>{{order.referred_by}}</td>
+                <td>{{order.consulted_by.first_name}} {{order.consulted_by.last_name}}</td>
+                <td>
+                    <i class="fa fa-inr" aria-hidden="true"></i>
+                    {{order.final_amount}}
+                </td>
+                <td>
+                    {% if order.balance_amount == 0 %}
+                    <i class="fa fa-check-circle" style="color: green" aria-hidden="true">&nbsp; Paid </i>
+                    {% else %}
+                    <i class="fa fa-times-circle" style="color: red" aria-hidden="true">&nbsp; Unpaid </i>
+                    {% endif %}
+                </td>
+                <td><a target="_blank" href="{% url 'lab:report' %}?order_id={{order.id}}">View Report</a></td>
+                <td><a target="_blank" href="{% url 'lab:invoice' %}?order_id={{order.id}}">View Invoice</a></td>
+                <td><a href="{% url 'lab:update_order' pk=order.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+{% endblock content %}
+
+
+{% block script %}{% endblock script %}

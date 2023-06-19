@@ -1,0 +1,1009 @@
+[
+    {
+        "model": "lab.patient",
+        "pk": 1,
+        "fields": {
+            "first_name": "Mr. Ketan",
+            "last_name": "Chavan",
+            "contact_no": "1111111111",
+            "email": "user744826@gmail.com",
+            "age": "29",
+            "gender": "MALE",
+            "date": "2021-06-20T17:33:17.072"
+        }
+    },
+    {
+        "model": "lab.patient",
+        "pk": 10,
+        "fields": {
+            "first_name": "Mr. Elliot",
+            "last_name": "Alderson",
+            "contact_no": "1234567890",
+            "email": "elliotalderson8086@gmail.com",
+            "age": "30",
+            "gender": "MALE",
+            "date": "2022-02-26T13:49:20.262"
+        }
+    },
+    {
+        "model": "lab.patient",
+        "pk": 11,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Steve",
+            "contact_no": "6527464826",
+            "email": "johnsteve@gmail.comm",
+            "age": "25",
+            "gender": "MALE",
+            "date": "2022-02-26T17:44:31.103"
+        }
+    },
+    {
+        "model": "lab.patient",
+        "pk": 12,
+        "fields": {
+            "first_name": "New",
+            "last_name": "User",
+            "contact_no": "1234567890",
+            "email": "dummy@gmail.com",
+            "age": "29",
+            "gender": "MALE",
+            "date": "2022-02-28T22:08:23.497"
+        }
+    },
+    {
+        "model": "lab.doctor",
+        "pk": 1,
+        "fields": {
+            "first_name": "Dr. Jay",
+            "last_name": "Patil",
+            "contact_no": "1111111111",
+            "email": "dummy@gmail.comm",
+            "degree": "M.B.B.S.",
+            "cut": 3.2
+        }
+    },
+    {
+        "model": "lab.doctor",
+        "pk": 2,
+        "fields": {
+            "first_name": "Dr. Ayush",
+            "last_name": "Pawar",
+            "contact_no": "1111111111",
+            "email": "dummy@gmail.comm",
+            "degree": "B.A.M.S.",
+            "cut": 2.1
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 1,
+        "fields": {
+            "name": "Haemoglobin",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "Male : 14 - 16 g%\r\nFemale : 12 - 14 g%",
+            "notes": "",
+            "amount": "100.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 2,
+        "fields": {
+            "name": "RBC  Count",
+            "low_ref": "14",
+            "high_ref": "16",
+            "units": "g%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "20.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 3,
+        "fields": {
+            "name": "PCV",
+            "low_ref": "35",
+            "high_ref": "45",
+            "units": "%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "30.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 4,
+        "fields": {
+            "name": "Total WBC Count",
+            "low_ref": "4000",
+            "high_ref": "11000",
+            "units": "/ cu.mm",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "100.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 5,
+        "fields": {
+            "name": "Neutrophils",
+            "low_ref": "40",
+            "high_ref": "75",
+            "units": "%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "50.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 6,
+        "fields": {
+            "name": "Lymphocytes",
+            "low_ref": "20",
+            "high_ref": "40",
+            "units": "%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "40.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 7,
+        "fields": {
+            "name": "Eosinophils",
+            "low_ref": "00",
+            "high_ref": "06",
+            "units": "%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "20.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 8,
+        "fields": {
+            "name": "Monocytes",
+            "low_ref": "00",
+            "high_ref": "10",
+            "units": "%",
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "20.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 9,
+        "fields": {
+            "name": "Platelet Count",
+            "low_ref": "150000",
+            "high_ref": "450000",
+            "units": "/ cu.mm",
+            "elabaorated_range": "",
+            "notes": "Method : Fully Automated 5 part Cell counter - SF3000",
+            "amount": "100.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 10,
+        "fields": {
+            "name": "WBCs on PS",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "20.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 11,
+        "fields": {
+            "name": "RBC Morphology",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "50.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 12,
+        "fields": {
+            "name": "Blood Group",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "200.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 13,
+        "fields": {
+            "name": "Rh Factor",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "50.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 14,
+        "fields": {
+            "name": "Dengue - IgG",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "300.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 15,
+        "fields": {
+            "name": "Dengue - IgM",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "300.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 16,
+        "fields": {
+            "name": "HCV Antibod",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "100.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 17,
+        "fields": {
+            "name": "HBsAg",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "",
+            "notes": "",
+            "amount": "10.00"
+        }
+    },
+    {
+        "model": "lab.test",
+        "pk": 18,
+        "fields": {
+            "name": "Leutinising Hormone (LH)",
+            "low_ref": null,
+            "high_ref": null,
+            "units": null,
+            "elabaorated_range": "Females : \r\nNormally Menstruating :Follicular Phase : 2 - 15; \r\nMidcycle Peak : 15 - 80; Luteal Phase : 2 - 20\r\n\r\nMales (13 - 70 Years) : 2 - 10",
+            "notes": "Method C.L.I.A.",
+            "amount": "200.00"
+        }
+    },
+    {
+        "model": "lab.package",
+        "pk": 1,
+        "fields": {
+            "name": "COMPLETE BLOOD COUNT",
+            "amount": "650.00",
+            "linked_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ]
+        }
+    },
+    {
+        "model": "lab.package",
+        "pk": 2,
+        "fields": {
+            "name": "DENGUE -IgG/ IgM",
+            "amount": "600.00",
+            "linked_test": [
+                14,
+                15
+            ]
+        }
+    },
+    {
+        "model": "lab.package",
+        "pk": 3,
+        "fields": {
+            "name": "Combo Special Offer",
+            "amount": "1000.00",
+            "linked_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 1,
+        "fields": {
+            "order_date": "2021-06-13T18:10:14",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": null,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2021-06-13T18:10:14",
+            "investigation_amount": "1500.00",
+            "visiting_charge": "2200.00",
+            "other_charge": "600.00",
+            "discount_amount": "2000.00",
+            "final_amount": "2300.00",
+            "advance_received": "2100.00",
+            "balance_amount": "200.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "investigation_package": [
+                1,
+                2
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 2,
+        "fields": {
+            "order_date": "2021-06-16T11:06:58",
+            "patient": 1,
+            "referred_by": "2",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2021-06-16T11:06:58",
+            "investigation_amount": "1000.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "1000.00",
+            "advance_received": "1710.00",
+            "balance_amount": "-710.00",
+            "payment_type": "CASH",
+            "payment_notes": "UPI",
+            "investigation_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+            ],
+            "investigation_package": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 3,
+        "fields": {
+            "order_date": "2021-06-27T21:01:36",
+            "patient": 1,
+            "referred_by": "2",
+            "consulted_by": 1,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2021-06-27T21:01:36",
+            "investigation_amount": "1180.00",
+            "visiting_charge": "200.00",
+            "other_charge": "100.00",
+            "discount_amount": "199.00",
+            "final_amount": "1281.00",
+            "advance_received": "200.00",
+            "balance_amount": "1081.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                16
+            ],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 4,
+        "fields": {
+            "order_date": "2021-11-08T10:36:19",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": 1,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2021-11-08T10:36:19",
+            "investigation_amount": "0.00",
+            "visiting_charge": "100.00",
+            "other_charge": "200.00",
+            "discount_amount": "100.00",
+            "final_amount": "200.00",
+            "advance_received": "300.00",
+            "balance_amount": "-100.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 5,
+        "fields": {
+            "order_date": "2021-11-08T10:40:28",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": 2,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2021-11-08T10:40:28",
+            "investigation_amount": "1450.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "1450.00",
+            "advance_received": "500.00",
+            "balance_amount": "950.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                12,
+                14,
+                15,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "investigation_package": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 6,
+        "fields": {
+            "order_date": "2021-11-08T10:46:10",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": 2,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2021-11-08T10:46:10",
+            "investigation_amount": "850.00",
+            "visiting_charge": "200.00",
+            "other_charge": "100.00",
+            "discount_amount": "5.00",
+            "final_amount": "1145.00",
+            "advance_received": "200.00",
+            "balance_amount": "945.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                12,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "investigation_package": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 7,
+        "fields": {
+            "order_date": "2022-02-24T20:41:49",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": 2,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2022-02-24T20:41:50",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                2,
+                4,
+                5,
+                1,
+                3,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "investigation_package": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 8,
+        "fields": {
+            "order_date": "2022-02-24T21:34:03",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": null,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2022-02-24T21:34:03",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 9,
+        "fields": {
+            "order_date": "2022-02-24T21:34:16",
+            "patient": 1,
+            "referred_by": "1",
+            "consulted_by": 2,
+            "sample_collected_at": "LAB",
+            "sample_collection_datetime": "2022-02-24T21:34:16",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                3
+            ],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 10,
+        "fields": {
+            "order_date": "2022-02-26T17:44:31.103",
+            "patient": 11,
+            "referred_by": "Dr. Jay Patel",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-23T17:44:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "OTHER",
+            "payment_notes": "UPI",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 11,
+        "fields": {
+            "order_date": "2022-02-26T17:46:22.401",
+            "patient": 11,
+            "referred_by": "Dr. Jay Patel",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-25T22:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "200.00",
+            "other_charge": "100.00",
+            "discount_amount": "100.00",
+            "final_amount": "200.00",
+            "advance_received": "100.00",
+            "balance_amount": "100.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 12,
+        "fields": {
+            "order_date": "2022-02-26T20:59:45.967",
+            "patient": 10,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-26T21:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 13,
+        "fields": {
+            "order_date": "2022-02-26T21:16:21.350",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-24T21:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "OTHER",
+            "payment_notes": "UPI",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 14,
+        "fields": {
+            "order_date": "2022-02-26T21:17:00.890",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-24T21:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "OTHER",
+            "payment_notes": "UPI",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 15,
+        "fields": {
+            "order_date": "2022-02-26T21:18:28.615",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-24T21:00:00",
+            "investigation_amount": "2250.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "2250.00",
+            "advance_received": "0.00",
+            "balance_amount": "2250.00",
+            "payment_type": "OTHER",
+            "payment_notes": "UPI",
+            "investigation_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+            ],
+            "investigation_package": [
+                1,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 16,
+        "fields": {
+            "order_date": "2022-02-26T21:50:58.901",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-19T21:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 17,
+        "fields": {
+            "order_date": "2022-02-26T21:51:45.894",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-19T21:00:00",
+            "investigation_amount": "0.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "0.00",
+            "advance_received": "0.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [],
+            "investigation_package": []
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 18,
+        "fields": {
+            "order_date": "2022-02-26T21:51:58.567",
+            "patient": 11,
+            "referred_by": "Dr.",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-11T21:00:00",
+            "investigation_amount": "800.00",
+            "visiting_charge": "300.00",
+            "other_charge": "0.00",
+            "discount_amount": "100.00",
+            "final_amount": "1000.00",
+            "advance_received": "1000.00",
+            "balance_amount": "0.00",
+            "payment_type": "CASH",
+            "payment_notes": "Paid",
+            "investigation_test": [
+                12,
+                14,
+                15
+            ],
+            "investigation_package": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 19,
+        "fields": {
+            "order_date": "2022-02-28T22:06:14.439",
+            "patient": 1,
+            "referred_by": "Dr. Jay Patel",
+            "consulted_by": 2,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-25T10:00:00",
+            "investigation_amount": "850.00",
+            "visiting_charge": "200.00",
+            "other_charge": "100.00",
+            "discount_amount": "100.00",
+            "final_amount": "1050.00",
+            "advance_received": "600.00",
+            "balance_amount": "450.00",
+            "payment_type": "OTHER",
+            "payment_notes": "UPI",
+            "investigation_test": [
+                12,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "investigation_package": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "lab.order",
+        "pk": 20,
+        "fields": {
+            "order_date": "2022-02-28T22:08:23.497",
+            "patient": 12,
+            "referred_by": "Dr. Abc",
+            "consulted_by": 1,
+            "sample_collected_at": "HOME",
+            "sample_collection_datetime": "2022-02-28T22:08:00",
+            "investigation_amount": "650.00",
+            "visiting_charge": "0.00",
+            "other_charge": "0.00",
+            "discount_amount": "0.00",
+            "final_amount": "650.00",
+            "advance_received": "360.00",
+            "balance_amount": "290.00",
+            "payment_type": "CASH",
+            "payment_notes": "",
+            "investigation_test": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "investigation_package": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "lab.labinformation",
+        "pk": 2,
+        "fields": {
+            "name": "Crystal Data Inc. CONSULTING, DEVELOPMENT, SUPPORT",
+            "address": "#008, Wing-3, Devi Krupa,\r\nPant Nagar, Ghatkopar (E)\r\nMumbai - 400 075",
+            "checked": "Checked By",
+            "doctor_name": "Dr. Pankaj Shah",
+            "doctor_qualification": "M.B.B.S.",
+            "doctor_post": "Admin",
+            "doctor_sign": 10,
+            "header": "Mobile : 9820373936 / 9920548030\r\nEmail : crystaldatainc@gmail.com",
+            "footer": "Highlighted Result Values Indicate Abnormal Report Printed By My Lab www.crystaldatainc.com"
+        }
+    }
+]

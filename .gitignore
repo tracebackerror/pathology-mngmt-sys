@@ -2,10 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.idea/
+
 # C extensions
 *.so
-.DS_store
+
 # Distribution / packaging
 .Python
 build/
@@ -58,14 +58,10 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
 db.sqlite3-journal
 *.pyc
 __pycache__
-# media
 migrations
-stuff
-media
 
 # Flask stuff:
 instance/
@@ -130,13 +126,28 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+dummy.txt
 
 # Pyre type checker
 .pyre/
+
+# PyCharm #
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+*.iws /out/
 
 # Visual Studio Code #
 .vscode/*
 .history
 .vscode/launch.json
 myenv
-*.json

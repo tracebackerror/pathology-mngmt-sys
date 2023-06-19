@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+<style>
+    body{
+        background-color: #417690cc;
+    }
+    .bg-text {
+        background-color: rgb(219, 219, 219);
+        /* Fallback color */
+        color: white;
+        font-weight: bold;
+        border: 1px solid #417690;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 40%;
+        height: auto;
+        padding: 30px;
+    }
+</style>
+{% endblock head %}
+
+
+{% block content %}
+<br>
+<div class="container">
+    <div class="col-md-4 bg-text">
+        <p style="color: grey;font-size: larger;" class="text-center">LOGIN</p>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% for message in messages %}
+            <div class="alert alert-success">
+                <strong>{{ message|escape }}</strong>
+            </div>
+            {% endfor %}
+
+            {{ form.username }}
+            <br>
+            {{ form.password }}
+            <br>
+            <button style="width: 150px;display: block;margin-left: auto;margin-right: auto;" type="submit"
+                class="btn btn-info">Login</button>
+        </form>
+        <br>
+    </div>
+</div>
+<br>
+{% endblock content %}

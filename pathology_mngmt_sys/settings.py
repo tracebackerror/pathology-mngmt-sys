@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,6 +138,8 @@ STATICFILES_FINDERS = (
     
 )
 
+LOGIN_REDIRECT_URL = '/lab/'
+
 # Specifie path to components root (you need to use absolute path)
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, 'components')
 
@@ -159,11 +160,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'user744826@gmail.com'
-EMAIL_HOST_PASSWORD = 'dTc0NDgyNjc0NjQ0'
-# EMAIL_HOST_PASSWORD = 'jmhpncspivzjyntp'
-DEFAULT_FROM_EMAIL = 'user744826@gmail.com'
-
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+EMAIL_HOST_USER = 'admin@gmail.com'
+EMAIL_HOST_PASSWORD = 'admin'
+DEFAULT_FROM_EMAIL = 'admin@gmail.com'
