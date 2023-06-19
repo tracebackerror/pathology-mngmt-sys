@@ -33,7 +33,6 @@ MarkupSafe==2.0.1
 odfpy==1.4.1
 openpyxl==3.0.9
 Pillow==9.0.0
-psycopg2==2.9.3
 pycodestyle==2.8.0
 PyPDF2==1.26.0
 python-bidi==0.4.2
