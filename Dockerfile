@@ -11,8 +11,6 @@ RUN git clone https://github.com/tracebackerror//pathology-mngmt-sys -b student 
 
 # Install project dependencies and migrations
 RUN pip install -r requirements.txt
-RUN python manage.py makemigrations
-RUN python manage.py migrate
 
 # Run the applicatio
 CMD python manage.py runserver 0.0.0.0:8000
